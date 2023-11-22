@@ -11,17 +11,32 @@ body {
 
 #login-container {
     background-color: #fff;
-    padding: 20px;
+    padding: 40px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+}
+
+#signup-container {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-top: 20px;
 }
 
 .form-element {
     margin-bottom: 15px;
 }
 
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 label {
-    display: block;
     margin-bottom: 5px;
 }
 
@@ -33,8 +48,14 @@ input {
     border-radius: 4px;
 }
 
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 button {
-    background-color: #4caf50;
+    background-color: #4c7faf;
     color: white;
     padding: 10px 15px;
     border: none;
@@ -42,6 +63,11 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background-color: #45a049;
+a {
+    text-decoration: none;
 }
+
+h2 {
+    text-align: center;
+}
+

@@ -11,7 +11,8 @@
 
 <body>
     <div id="login-container">
-        <form method="post" action="" name="signin-form">
+        <h2>Login de Usuario</h2>
+        <form method="post" action="https://burg.cl/" name="signin-form">
             <div class="form-element">
                 <label>Email</label>
                 <input type="email" name="correo" required />
@@ -20,7 +21,9 @@
                 <label>Password</label>
                 <input type="password" name="password" required />
             </div>
-            <button type="submit" name="login" value="login">Log In</button>
+            <div class="button-container">
+                <a href="signup.php"><button type="button">Sign Up</button></a>
+            </div>
         </form>
     </div>
 </body>
