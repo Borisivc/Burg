@@ -22,6 +22,7 @@
                 <input type="password" name="password" required />
             </div>
             <div class="button-container">
+                <button type="submit" name="login" value="login">Log In</button>
                 <a href="signup.php"><button type="button">Sign Up</button></a>
             </div>
         </form>
