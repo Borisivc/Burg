@@ -34,7 +34,9 @@ if (isset($_POST['login_form'])) {
 
         <!-- Muestra el mensaje de error si existe -->
         <?php if (!empty($error_message)) : ?>
-            <p style="color: red;"><?php echo $error_message; ?></p>
+            <div class="message-container error-message">
+                <p><?php echo $error_message; ?></p>
+            </div>
         <?php endif; ?>
 
         <form method="post" action="login.php" name="signin-form">
@@ -51,6 +53,18 @@ if (isset($_POST['login_form'])) {
                 <a href="signup.php"><button type="button">Sign Up</button></a>
             </div>
         </form>
+
+        <!-- Muestra el mensaje de registro exitoso si existe -->
+        <?php if (isset($_GET['registro_exitoso']) && $_GET['registro_exitoso'] == 'true') : ?>
+            <div class="message-container success-message">
+                <p>Registro exitoso. Redirigiendo al inicio de sesión...</p>
+                <script>
+                    setTimeout(function () {
+                        window.location.href = "login.php";
+                    }, 3000);
+                </script>
+            </div>
+        <?php endif; ?>
     </div>
 </body>
 

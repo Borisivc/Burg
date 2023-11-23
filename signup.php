@@ -12,8 +12,11 @@
 <body>
     <div id="signup-container">
         <h2>Registro de Usuario</h2>
-        
+
         <?php
+        require_once("models/usuarios_model.php");
+        $user = new usuarios_model();
+
         // Manejar el registro cuando se envía el formulario
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['signup'])) {
             // Obtener los datos del formulario
@@ -23,27 +26,26 @@
             $password = trim($_POST['password']);
             $confirm_password = trim($_POST['confirm_password']);
 
-            // Validar los datos (puedes agregar más validaciones según tus necesidades)
-
-            // Verificar si la contraseña y la confirmación coinciden
+            // Validar los datos
             if ($password != $confirm_password) {
                 $error_message = "La contraseña y la confirmación no coinciden.";
             } else {
-                // Crear una instancia del modelo de usuarios
-                require_once("models/usuarios_model.php");
-                $user = new usuarios_model();
-
                 // Verificar si el correo ya está registrado
                 if ($user->correo_existente($correo)) {
                     $error_message = "El correo proporcionado ya está registrado.";
                 } else {
-                    // Hash de la contraseña antes de almacenarla en la base de datos
-                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-                    // Llamar a la función del modelo para agregar el nuevo usuario
-                    if ($user->registrar_usuario($nombre, $apellido, $correo, $hashed_password)) {
-                        // Redirigir a la página de bienvenida o a donde sea apropiado
-                        header("Location: welcome.php");
+                    // Registrar el nuevo usuario
+                    if ($user->registrar_usuario($nombre, $apellido, $correo, $password)) {
+                        // Mostrar mensaje de registro exitoso
+                        echo '<div class="message-container success-message">';
+                        echo '<p>Registro exitoso. Redirigiendo al inicio de sesión...</p>';
+                        echo '</div>';
+                        // Redirigir al formulario de inicio de sesión después de un breve retraso
+                        echo '<script>';
+                        echo 'setTimeout(function () {';
+                        echo 'window.location.href = "login.php";';
+                        echo '}, 3000);';
+                        echo '</script>';
                         exit();
                     } else {
                         $error_message = "Error al registrar el usuario. Por favor, inténtalo de nuevo.";
@@ -55,7 +57,9 @@
 
         <!-- Mostrar mensajes de error si los hay -->
         <?php if (isset($error_message)) : ?>
-            <p style="color: red;"><?php echo $error_message; ?></p>
+            <div class="message-container error-message">
+                <p><?php echo $error_message; ?></p>
+            </div>
         <?php endif; ?>
 
         <!-- Formulario de registro -->

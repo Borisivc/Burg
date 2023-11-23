@@ -37,5 +37,34 @@ class usuarios_model
 
         return false;
     }
+
+    // Nueva función para verificar si el correo ya existe
+    public function correo_existente($correo)
+    {
+        $consulta = $this->db->prepare("SELECT email FROM usuarios WHERE email = ?");
+        $consulta->bind_param("s", $correo);
+
+        if ($consulta->execute()) {
+            $resultado = $consulta->get_result();
+            return $resultado->num_rows > 0;
+        } else {
+            error_log("Error al ejecutar la consulta para verificar el correo existente. Correo: $correo");
+            return false;
+        }
+    }
+
+    // Nueva función para registrar un usuario
+    public function registrar_usuario($nombre, $apellido, $correo, $password)
+    {
+        $consulta = $this->db->prepare("INSERT INTO usuarios (nombre, apellido, email, pass) VALUES (?, ?, ?, ?)");
+        $consulta->bind_param("ssss", $nombre, $apellido, $correo, $password);  // No ciframos la contraseña
+
+        if ($consulta->execute()) {
+            return true;
+        } else {
+            error_log("Error al registrar el usuario. Correo: $correo");
+            return false;
+        }
+    }
 }
 ?>
